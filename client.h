@@ -4,7 +4,7 @@
 #include<QSqlQuery>
 #include<QSqlQueryModel>
 
-
+// test
 class client
 {
     QString   nom , prenom , email , sexe , type_client  ;
