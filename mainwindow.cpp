@@ -4,6 +4,7 @@
 #include "comptes.h"
 #include <QMessageBox>
 #include <QIntValidator>
+#include <QDebug>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
