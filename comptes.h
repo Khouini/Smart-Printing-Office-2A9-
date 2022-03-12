@@ -18,6 +18,7 @@ public:
     QSqlQueryModel * trier(QString, QString);
     QSqlQueryModel * recherche(QString);
     QSqlQueryModel * rechercheID(QString);
+
 };
 
 #endif // COMPTES_H

@@ -78,7 +78,7 @@ QSqlQueryModel * Comptes::recherche(QString rech){
 }
 QSqlQueryModel * Comptes::rechercheID(QString rech){
     QSqlQueryModel * model = new QSqlQueryModel();
-    model->setQuery("select * from Comptes where (N_COMPTE) LIKE '%"+rech+"%'");
+    model->setQuery("select * from Comptes where (N_COMPTE) LIKE "+rech+" ");
     model->setHeaderData(0,Qt::Horizontal, QObject::tr("Numéro"));
     model->setHeaderData(1,Qt::Horizontal, QObject::tr("Nom"));
     model->setHeaderData(2,Qt::Horizontal, QObject::tr("Classe"));

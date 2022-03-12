@@ -33,6 +33,8 @@ private slots:
 
     void on_pushButton_Chercher_2_clicked();
 
+    void on_tableViewComptes_activated(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
     Comptes Cmpt;

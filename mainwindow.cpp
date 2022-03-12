@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QIntValidator>
 #include <QDebug>
+#include <QSqlError>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -140,4 +141,28 @@ void MainWindow::on_pushButton_Chercher_2_clicked()
 {
     QString rech_field = ui->lineEdit_ID_RECH_2->text();
     ui->tableViewComptes->setModel(Cmpt.recherche(rech_field));
+}
+
+void MainWindow::on_tableViewComptes_activated(const QModelIndex &index)
+{
+    QString val = ui->tableViewComptes->model()->data(index).toString();
+    QSqlQuery query;
+    query.prepare("select * from Comptes where (N_COMPTE) LIKE "+val+" ");
+    if (query.exec()){
+        while (query.next()){
+            ui->lineEdit_Numero_Compte->setText(query.value(0).toString());
+            ui->lineEdit_Suppression_ID->setText(query.value(0).toString());
+            ui->lineEdit_Nom_Compte->setText(query.value(1).toString());
+            ui->lineEdit_Classe_Compte->setText(query.value(2).toString());
+            ui->plainTextEdit_Caracteristiques_Compte->setPlainText(query.value(4).toString());
+            if ((query.value(3).toString()) == "Actif"){
+                ui->radioButton_Type_Actif->setChecked(1);
+            }
+            if ((query.value(3).toString()) == "Passif"){
+                ui->radioButton_Type_Passif->setChecked(1);
+            }
+        }
+    }else{
+        QMessageBox::critical(this, tr("Error::"), query.lastError().text());
+    }
 }
