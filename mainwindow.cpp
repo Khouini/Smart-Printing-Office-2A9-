@@ -7,25 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    createGroupBox();
     ui->setupUi(this);
     ui->lineEdit_cin->setValidator(new QIntValidator(0,99999,this));
     ui->tableView->setModel(em.afficher());
 }
-void MainWindow::createGroupBox()
-{
-    groupBox = new QGroupBox(tr("Liste des employees"));
-    perspectiveRadioButton = new QRadioButton(tr("Perspective"));
-    isometricRadioButton = new QRadioButton(tr("Isometric"));
-    obliqueRadioButton = new QRadioButton(tr("Oblique"));
-    perspectiveRadioButton->setChecked(true);
 
-    QVBoxLayout *groupBoxLayout = new QVBoxLayout;
-    groupBoxLayout->addWidget(perspectiveRadioButton);
-    groupBoxLayout->addWidget(isometricRadioButton);
-    groupBoxLayout->addWidget(obliqueRadioButton);
-    groupBox->setLayout(groupBoxLayout);
-}
 MainWindow::~MainWindow()
 {
     delete ui;

@@ -5,12 +5,6 @@
 #include "employe.h"
 
 QT_BEGIN_NAMESPACE
-class QAction;
-class QGroupBox;
-class QLabel;
-class QListWidget;
-class QMenu;
-class QRadioButton;
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
@@ -38,16 +32,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     employe em;
-    void createGroupBox();
 
-    QWidget *centralWidget;
-    QLabel *label;
-    QGroupBox *groupBox;
-    QListWidget *listWidget;
-    QRadioButton *perspectiveRadioButton;
-    QRadioButton *isometricRadioButton;
-    QRadioButton *obliqueRadioButton;
-    QMenu *fileMenu;
-    QAction *exitAction;
 };
 #endif // MAINWINDOW_H

@@ -18,30 +18,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     connection.cpp \
     employe.cpp \
-    languagechooser.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     connection.h \
     employe.h \
-    languagechooser.h \
     mainwindow.h
 
 FORMS += \
     mainwindow.ui
+
+TRANSLATIONS += lang_eng.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    i18n.pro.user \
-    untitled.pro.user
-
-SUBDIRS += \
-    i18n.pro
-
 RESOURCES += \
-    i18n.qrc
+    translation.qrc
+
+
+

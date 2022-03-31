@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>801</width>
-      <height>571</height>
+      <width>901</width>
+      <height>661</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -332,7 +332,7 @@
             <x>10</x>
             <y>20</y>
             <width>141</width>
-            <height>71</height>
+            <height>77</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
