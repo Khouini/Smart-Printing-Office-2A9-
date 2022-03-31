@@ -4,6 +4,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 QT+=sql
+QT+=printsupport
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -18,21 +19,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     comptes.cpp \
     connection.cpp \
-    dialog_voir_pj.cpp \
+    gestioncommandes.cpp \
+    historique.cpp \
     main.cpp \
     mainwindow.cpp
-
 HEADERS += \
     comptes.h \
     connection.h \
-    dialog_voir_pj.h \
+    gestioncommandes.h \
+    historique.h \
     mainwindow.h
 
 FORMS += \
-    dialog_voir_pj.ui \
-    mainwindow.ui
+    mainwindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
+DISTFILES += \
+    Quicksand-SemiBold.ttf
