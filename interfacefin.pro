@@ -21,11 +21,13 @@ SOURCES += \
     connection.cpp \
     main.cpp \
     mainwindow.cpp \
+    qrcode.cpp \
     techniciens.cpp
 
 HEADERS += \
     connection.h \
     mainwindow.h \
+    qrcode.h \
     techniciens.h
 
 FORMS += \
@@ -35,3 +37,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    ../../../../Downloads/Quicksand-SemiBold.ttf

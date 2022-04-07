@@ -32,6 +32,16 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_sombre_clicked();
+
+    void on_pushButton_blanc_clicked();
+
+    void on_pushButton_pdf_clicked();
+
+    void on_qrCode_clicked();
+
+    void on_ActualiserHistorique_clicked();
+
 private:
     Ui::MainWindow *ui;
 
