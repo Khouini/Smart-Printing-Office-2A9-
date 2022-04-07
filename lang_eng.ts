@@ -21,7 +21,7 @@
     <message>
         <location filename="mainwindow.ui" line="66"/>
         <source>Ajouter employe</source>
-        <translation>add employee</translation>
+        <translation type="unfinished">add employee</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="93"/>
@@ -190,13 +190,13 @@
         <location filename="employe.cpp" line="63"/>
         <location filename="employe.cpp" line="78"/>
         <source>Nom</source>
-        <translation></translation>
+        <translation>last name</translation>
     </message>
     <message>
         <location filename="employe.cpp" line="64"/>
         <location filename="employe.cpp" line="79"/>
         <source>Prenom</source>
-        <translation></translation>
+        <translation>first name</translation>
     </message>
     <message>
         <location filename="employe.cpp" line="65"/>
@@ -214,7 +214,7 @@
         <location filename="employe.cpp" line="67"/>
         <location filename="employe.cpp" line="82"/>
         <source>adresse</source>
-        <translation></translation>
+        <translation>address</translation>
     </message>
     <message>
         <location filename="main.cpp" line="20"/>

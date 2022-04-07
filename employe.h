@@ -25,14 +25,17 @@ public:
     void setemail(QString e){email=e;}
     void setadresse(QString a){adresse=a;}
     void setcin(int c){cin=c;}
+    void save(int,QString,QString,QString,QString,QString);
 
     bool ajouter();
     QSqlQueryModel * afficher();
     QSqlQueryModel * trier(QString,QString);
     QSqlQueryModel * rechercher(QString);
-
+    void printPDF_employe();
     bool supprimer(int);
     bool modifier();
+    QString load();
+    void save(QString,QString);
 };
 
 #endif // EMPLOYE_H

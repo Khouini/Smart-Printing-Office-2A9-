@@ -30,7 +30,7 @@ FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += lang_eng.ts
-
+QT       +=printsupport
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

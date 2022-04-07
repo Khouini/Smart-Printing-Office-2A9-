@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
     languages <<"french" << "english";
 
     QString lang = QInputDialog::getItem(NULL,"select language","Language",languages);
-
     if ( lang == "english")
     {
         t.load(":/lang_eng.qm");
@@ -26,9 +25,11 @@ int main(int argc, char *argv[])
     {
         a.installTranslator(&t);
     }
+
+
     Connection c;
     bool test=c.createconnection();
-     MainWindow w;
+    MainWindow w;
     if(test)
     {w.show();
         QMessageBox::critical(nullptr, QObject::tr("database is open"),
