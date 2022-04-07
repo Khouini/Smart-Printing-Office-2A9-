@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>818</width>
     <height>633</height>
    </rect>
   </property>
@@ -17,10 +17,10 @@
    <widget class="QTabWidget" name="histo">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>-10</x>
       <y>20</y>
-      <width>771</width>
-      <height>581</height>
+      <width>851</width>
+      <height>591</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -35,7 +35,7 @@
        <rect>
         <x>20</x>
         <y>10</y>
-        <width>731</width>
+        <width>561</width>
         <height>261</height>
        </rect>
       </property>
@@ -47,22 +47,9 @@
         <rect>
          <x>20</x>
          <y>30</y>
-         <width>581</width>
+         <width>481</width>
          <height>211</height>
         </rect>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_Actualiser">
-       <property name="geometry">
-        <rect>
-         <x>620</x>
-         <y>90</y>
-         <width>93</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Actualiser</string>
        </property>
       </widget>
      </widget>
@@ -339,7 +326,7 @@
       <property name="geometry">
        <rect>
         <x>680</x>
-        <y>290</y>
+        <y>310</y>
         <width>71</width>
         <height>28</height>
        </rect>
@@ -348,49 +335,44 @@
        <string>PDF</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tab_4">
-     <attribute name="title">
-      <string>imprimer fichier </string>
-     </attribute>
-     <widget class="QWidget" name="verticalLayoutWidget_2">
+     <widget class="QPushButton" name="pushButton_ActualiserHistorique">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>30</y>
-        <width>721</width>
-        <height>431</height>
+        <x>690</x>
+        <y>440</y>
+        <width>93</width>
+        <height>28</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit">
-         <property name="plainText">
-          <string>id fournisseur:
-
-produit:
-
-quantité:
-
-prix:
-
-date:
-
-
-
-
-signature:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_5">
-         <property name="text">
-          <string>PDF</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="text">
+       <string>Actualiser</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pb_image">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>220</y>
+        <width>93</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>inserer image</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_pic">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>50</y>
+        <width>201</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -412,6 +394,19 @@ signature:</string>
        </item>
       </layout>
      </widget>
+     <widget class="QPushButton" name="pushButton_Actualiser">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>230</y>
+        <width>93</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Actualiser</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -420,7 +415,7 @@ signature:</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>818</width>
      <height>26</height>
     </rect>
    </property>

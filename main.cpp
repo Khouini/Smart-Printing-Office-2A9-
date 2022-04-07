@@ -9,10 +9,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     // theme
-        QFile styleSheetFile("C:\\Users\\maato\\Desktop\\Projet CRUD\\ProjectFournisseurs\\Darkeum.qss");
-        styleSheetFile.open(QFile::ReadOnly);
-        QString styleSheet = ( styleSheetFile.readAll() );
-        a.setStyleSheet(styleSheet);
+       // QFile styleSheetFile("C:\\Users\\maato\\Desktop\\Projet CRUD\\ProjectFournisseurs\\Darkeum.qss");
+       // styleSheetFile.open(QFile::ReadOnly);
+       // QString styleSheet = ( styleSheetFile.readAll() );
+       // a.setStyleSheet(styleSheet);
         //end theme
     Connection c;
 

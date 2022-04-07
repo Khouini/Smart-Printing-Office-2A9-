@@ -10,10 +10,11 @@ class histo
 {
 private:
     QString operation;
+    int id_f;
 
 public:
     histo();
-    histo(QString);
+    histo(QString, int);
     void Ajouter();
     QSqlQueryModel * Afficher( );
 

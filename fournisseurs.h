@@ -23,6 +23,7 @@ public:
     QSqlQueryModel * trierNom();
     QSqlQueryModel * chercher(QString);
 
+
     QStringList lister2();
     void printPDF_employe() ;
 };

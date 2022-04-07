@@ -34,6 +34,21 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_ActualiserHistorique_clicked();
+
+
+
+    void on_lineEdit_textEdited(const QString &arg1);
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pb_image_clicked();
+
+
 private:
     Ui::MainWindow *ui;
     Fournisseurs FRN;
