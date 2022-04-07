@@ -449,9 +449,12 @@ QLineEdit::disabled
 /*-----QTextEdit-----*/
 QTextEdit
 {
-	background-color: #ffffff;
-	color: #010201;
-	border-color: #051a39;
+	background-color: #242526;
+	border: 1px solid #32414B;
+	color: #f0f0f0;
+    gridline-color: #8faaff;
+    outline : 0;
+	font-size: 15px;
 
 }
 
@@ -604,7 +607,6 @@ QTableView
     outline : 0;
 
 }
-
 
 QTableView::disabled
 {

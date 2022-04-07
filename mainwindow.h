@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "gestioncommandes.h"
 #include "historique.h"
+#include "mailing.h"
+#include "notifications.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -63,11 +65,20 @@ private slots:
 
     void on_pushButton_afficher_pdf_clicked();
 
+    void on_pushButton_envoyer_clicked();
+
+    void on_pushButton_actualiser_chat_clicked();
+
+    void on_pushButton_send_mail_clicked();
+
+    void on_pushButton_mail_pj_clicked();
+
 private:
     Ui::MainWindow *ui;
     Comptes Cmpt;
     GestionCommandes GC1;
     Historique H;
+    //notifications N;
 
 };
 #endif // MAINWINDOW_H
