@@ -1,6 +1,7 @@
 QT       += core gui
+QT += multimedia multimediawidgets
+greaterThan(QT_MAJOR_VERSION, 4):QT += widgets quickwidgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 QT += sql
@@ -16,17 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    camera.cpp \
     connection.cpp \
     main.cpp \
     mainwindow.cpp \
     produit.cpp
 
 HEADERS += \
+    camera.h \
     connection.h \
     mainwindow.h \
     produit.h
 
 FORMS += \
+    camera.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -35,4 +39,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    logo.qrc
+    camera.qrc \
+    logo.qrc \
+    qml.qrc
+
+SUBDIRS += \
+    camera.pro
+
+DISTFILES += \
+    camera.pro.user \
+    images/shutter.svg

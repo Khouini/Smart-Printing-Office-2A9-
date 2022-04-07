@@ -2,6 +2,10 @@
 #include <QApplication>
 #include <QMessageBox>
 #include "connection.h"
+#include "camera.h"
+
+#include <QtWidgets>
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -10,6 +14,9 @@ int main(int argc, char *argv[])
     bool test=c.createconnect();
     MainWindow w;
     w.show();
+    Camera camera;
+    camera.show();
+
     if(test)
     {w.show();
 
