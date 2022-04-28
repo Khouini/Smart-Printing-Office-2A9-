@@ -17,23 +17,23 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_ajouter_clicked();
-    void on_pushButton_supprimer_clicked();
-    void on_pushButton_modifier_clicked();
-    void on_pushButton_2_clicked();
+    void on_pushButton_ajouterA_clicked();
+    void on_pushButton_supprimerA_clicked();
+    void on_pushButton_modifierA_clicked();
+    void on_pushButton_2A_clicked();
 
 
-    void on_pushButton_4_clicked();
+    void on_pushButton_4A_clicked();
 
-    void on_pushButton_clicked();
+    void on_pushButtonA_clicked();
 
-    void on_pushButton_3_clicked();
+    void on_pushButton_3A_clicked();
 
-    void on_pushButton_6_clicked();
+    void on_pushButton_6A_clicked();
 
-    void on_pushButton_7_clicked();
+    void on_pushButton_7A_clicked();
 
-    void on_pushButton_5_clicked();
+    void on_pushButton_5A_clicked();
 
 private:
     Ui::MainWindow *ui;

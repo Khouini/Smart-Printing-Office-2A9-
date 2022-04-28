@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include "employe.h"
-#include <QTranslator>
+
 #include <QDesktopServices>
 #include <QUrl>
 
@@ -11,8 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->lineEdit_cin->setValidator(new QIntValidator(0,99999,this));
-    ui->tableView->setModel(em.afficher());
+    ui->lineEdit_cinA->setValidator(new QIntValidator(0,99999,this));
+    ui->tableViewA->setModel(em.afficher());
 }
 
 MainWindow::~MainWindow()
@@ -21,18 +21,18 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_modifier_clicked()
+void MainWindow::on_pushButton_modifierA_clicked()
 {
-    int cin=ui->lineEdit_cin->text().toInt();
-    QString nom=ui->lineEdit_nom->text();
-    QString prenom=ui->lineEdit_prenom->text();
-    QString adresse=ui->lineEdit_adresse->text();
-    QString email=ui->lineEdit_email->text();
+    int cin=ui->lineEdit_cinA->text().toInt();
+    QString nom=ui->lineEdit_nomA->text();
+    QString prenom=ui->lineEdit_prenomA->text();
+    QString adresse=ui->lineEdit_adresseA->text();
+    QString email=ui->lineEdit_emailA->text();
     QString type;
-    if(ui->radioButton->isChecked()){
+    if(ui->radioButtonA->isChecked()){
         type = "standard";
     }
-    if(ui->radioButton_2->isChecked()){
+    if(ui->radioButton_2A->isChecked()){
         type = "technicien";
     }
 
@@ -43,7 +43,7 @@ void MainWindow::on_pushButton_modifier_clicked()
 
     if(test)
     {
-         ui->tableView->setModel(em.afficher());//ref
+         ui->tableViewA->setModel(em.afficher());//ref
         QMessageBox::information(nullptr, QObject::tr("OK"),
                                  QObject::tr("modification effectue\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);
@@ -55,18 +55,18 @@ void MainWindow::on_pushButton_modifier_clicked()
                                           "Click Cancel to exit."), QMessageBox::Cancel);
     }
 }
-void MainWindow::on_pushButton_ajouter_clicked()
+void MainWindow::on_pushButton_ajouterA_clicked()
 {
-    int cin=ui->lineEdit_cin->text().toInt();
-    QString nom=ui->lineEdit_nom->text();
-    QString prenom=ui->lineEdit_prenom->text();
-    QString adresse=ui->lineEdit_adresse->text();
-    QString email=ui->lineEdit_email->text();
+    int cin=ui->lineEdit_cinA->text().toInt();
+    QString nom=ui->lineEdit_nomA->text();
+    QString prenom=ui->lineEdit_prenomA->text();
+    QString adresse=ui->lineEdit_adresseA->text();
+    QString email=ui->lineEdit_emailA->text();
     QString type;
-    if(ui->radioButton->isChecked()){
+    if(ui->radioButtonA->isChecked()){
         type = "standard";
     }
-    if(ui->radioButton_2->isChecked()){
+    if(ui->radioButton_2A->isChecked()){
         type = "technicien";
     }
     employe e(cin,nom,prenom,adresse,type,email);
@@ -75,7 +75,7 @@ void MainWindow::on_pushButton_ajouter_clicked()
     test=e.ajouter();
     if(test)
     {
-         ui->tableView->setModel(em.afficher());//ref
+         ui->tableViewA->setModel(em.afficher());//ref
         QMessageBox::information(nullptr, QObject::tr("OK"),
                                  QObject::tr("Ajout effectue\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);
@@ -88,16 +88,16 @@ void MainWindow::on_pushButton_ajouter_clicked()
     }
 }
 
-void MainWindow::on_pushButton_supprimer_clicked()
+void MainWindow::on_pushButton_supprimerA_clicked()
 {
-    int cin=ui->lineEdit_cins->text().toInt();
+    int cin=ui->lineEdit_cinsA->text().toInt();
 
     bool test;
     test=em.supprimer(cin);
 
     if(test)
     {
-         ui->tableView->setModel(em.afficher());//ref
+         ui->tableViewA->setModel(em.afficher());//ref
         QMessageBox::information(nullptr, QObject::tr("OK"),
                                  QObject::tr("Supression effectue\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);
@@ -110,38 +110,38 @@ void MainWindow::on_pushButton_supprimer_clicked()
     }
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_pushButton_2A_clicked()
 {
     QString type_of_tri;
     QString tri_par;
-    if(ui->radioButton_5->isChecked()){
+    if(ui->radioButton_5A->isChecked()){
         type_of_tri = "asc";
     }
-    if(ui->radioButton_6->isChecked()){
+    if(ui->radioButton_6A->isChecked()){
         type_of_tri = "desc";
     }
-    tri_par = ui->comboBox->currentText();
-    ui->tableView->setModel(em.trier(type_of_tri, tri_par));
+    tri_par = ui->comboBoxA->currentText();
+    ui->tableViewA->setModel(em.trier(type_of_tri, tri_par));
 }
 
-void MainWindow::on_pushButton_4_clicked()
+void MainWindow::on_pushButton_4A_clicked()
 {
-    QString rech = ui->lineEdit_2->text() ;
-    ui->tableView->setModel(em.rechercher(rech)) ;
+    QString rech = ui->lineEdit_2A->text() ;
+    ui->tableViewA->setModel(em.rechercher(rech)) ;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButtonA_clicked()
 {
-    if ("CLIENT20"  == ui->lineEdit_cin_3->text()){
+    if ("CLIENT20"  == ui->lineEdit_cin_3A->text()){
         QMessageBox::information(nullptr, QObject::tr("OK"),
                                  QObject::tr("remise de 20% effectue\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);    }
-    else if ("EMPLOYE50"  == ui->lineEdit_cin_3->text()){
+    else if ("EMPLOYE50"  == ui->lineEdit_cin_3A->text()){
         QMessageBox::information(nullptr, QObject::tr("OK"),
                                  QObject::tr("remise de 50% effectue\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);
     }
-    else if ("ADMIN100"  == ui->lineEdit_cin_3->text()){
+    else if ("ADMIN100"  == ui->lineEdit_cin_3A->text()){
         QMessageBox::information(nullptr, QObject::tr("OK"),
                                  QObject::tr("remise de 100% effectue\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);
@@ -155,43 +155,33 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
-void MainWindow::on_pushButton_3_clicked()
-{
-    QString lang;
-    if(ui->radioButton_7->isChecked()){
-        lang = "english";
-    }
-    if(ui->radioButton_8->isChecked()){
-        lang = "frensh";
-    }
 
-}
 
-void MainWindow::on_pushButton_6_clicked()
+void MainWindow::on_pushButton_6A_clicked()
 {
-    int cin=ui->lineEdit_cin->text().toInt();
-    QString nom=ui->lineEdit_nom->text();
-    QString prenom=ui->lineEdit_prenom->text();
-    QString adresse=ui->lineEdit_adresse->text();
-    QString email=ui->lineEdit_email->text();
+    int cin=ui->lineEdit_cinA->text().toInt();
+    QString nom=ui->lineEdit_nomA->text();
+    QString prenom=ui->lineEdit_prenomA->text();
+    QString adresse=ui->lineEdit_adresseA->text();
+    QString email=ui->lineEdit_emailA->text();
     QString type;
-    if(ui->radioButton->isChecked()){
+    if(ui->radioButtonA->isChecked()){
         type = "standard";
     }
-    if(ui->radioButton_2->isChecked()){
+    if(ui->radioButton_2A->isChecked()){
         type = "technicien";
     }
     employe e(cin,nom,prenom,adresse,type,email);
         e.printPDF_employe();
 }
 
-void MainWindow::on_pushButton_7_clicked()
+void MainWindow::on_pushButton_7A_clicked()
 {
     QString link="file:///C:/Users/souay/OneDrive/Documents/untitled/test.pdf";
             QDesktopServices::openUrl(QUrl(link));
 }
 
-void MainWindow::on_pushButton_5_clicked()
+void MainWindow::on_pushButton_5A_clicked()
 {
     QString link="file:///C:/Users/souay/OneDrive/Documents/untitled/histo.txt";
             QDesktopServices::openUrl(QUrl(link));
