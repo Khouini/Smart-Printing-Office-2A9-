@@ -109,7 +109,7 @@ query.prepare("Select ID_FOURNISSEUR from fournisseurs;");
 void Fournisseurs::printPDF_employe()
 {
 
-    QPdfWriter pdf("D:/Documents/GitHub/IntegrationQt/PDF/fournisseurs.pdf");
+    QPdfWriter pdf("C:/Users/maato/Desktop/Nouveau dossier/fahed.pdf");
     QPainter painter(&pdf);
     QFont font=painter.font();
     QMessageBox msgBox;
