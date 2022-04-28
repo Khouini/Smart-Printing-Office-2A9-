@@ -1,7 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "techniciens.h"
+
 #include <QMainWindow>
+#include "employe.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,37 +17,27 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_pushButton_ajouterA_clicked();
+    void on_pushButton_supprimerA_clicked();
+    void on_pushButton_modifierA_clicked();
+    void on_pushButton_2A_clicked();
 
 
-    void on_qrCode_clicked();
+    void on_pushButton_4A_clicked();
 
+    void on_pushButtonA_clicked();
 
-    void on_pushButton_ajouter_maint_clicked();
+    void on_pushButton_3A_clicked();
 
-    void on_pushButton_Modifier_maint_clicked();
+    void on_pushButton_6A_clicked();
 
-    void on_pushButton_rech_maint_clicked();
+    void on_pushButton_7A_clicked();
 
-    void on_pushButton_supp_maint_clicked();
-
-    void on_pushButton_sombre_maint_clicked();
-
-    void on_pushButton_blanc_maint_clicked();
-
-    void on_pushButton_pdf_maint_clicked();
-
-    void on_pushButton_historique_maint_clicked();
-
-    void on_radioButton_idTri_maint_clicked();
-
-    void on_radioButton_nomTri_maint_clicked();
-
-    void on_QUITTER_maint_clicked();
+    void on_pushButton_5A_clicked();
 
 private:
     Ui::MainWindow *ui;
-
-    Techniciens Etmp ;
+    employe em;
 
 };
 #endif // MAINWINDOW_H
