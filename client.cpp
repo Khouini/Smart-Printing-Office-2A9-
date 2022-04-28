@@ -126,7 +126,7 @@ bool client::modifierclient(){
 }
 void client::printPDF_client()
 {
-    QPdfWriter pdf("D:/Documents/GitHub/IntegrationQt/PDF/clients.pdf");
+    QPdfWriter pdf("C:/Users/Wahch/Desktop/gestion_client_ssDialog/client.pdf");
     QPainter painter(&pdf);
     QFont font=painter.font();
     QMessageBox msgBox;
@@ -159,7 +159,7 @@ void client::printPDF_client()
            msgBox.exec();
 }
 void client::save(QString id,QString cinn , QString nom ,QString prenom , QString email ,QString sexe ,QString type_client , QString operation )
-{    QFile file ("D:/Documents/GitHub/IntegrationQt/Historique/hitoriqueClients.txt");
+{    QFile file ("C:/Users/Wahch/Desktop/gestion_client_ssDialog/histo.txt");
      if (!file.open(QIODevice::WriteOnly|QIODevice::Append | QIODevice::Text))
       qDebug()<<"erreur";
       QTextStream out(&file);
@@ -180,7 +180,7 @@ void client::save(QString id,QString cinn , QString nom ,QString prenom , QStrin
 }
 QString client::load()
 {  QString tmp="";
-    QFile file("D:/Documents/GitHub/IntegrationQt/Historique/hitoriqueClients.txt");
+    QFile file("C:/Users/Wahch/Desktop/gestion_client_ssDialog/histo.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
       tmp="";
 
@@ -193,6 +193,11 @@ QString client::load()
 
    }
    return tmp;
+}
+QSqlQueryModel * client::afficherIdClientComboBox(){
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT ID_CLIENT FROM CLIENTS;");
+    return model;
 }
 
 

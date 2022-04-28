@@ -1,36 +1,30 @@
 #include "mainwindow.h"
-#include "QApplication"
-#include "connection.h"
-#include "fournisseurs.h"
-#include "histo.h"
+
+#include <QApplication>
 #include <QMessageBox>
-#include <QFile>
+#include "connection.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    // theme
-       // QFile styleSheetFile("C:\\Users\\maato\\Desktop\\Projet CRUD\\ProjectFournisseurs\\Darkeum.qss");
-       // styleSheetFile.open(QFile::ReadOnly);
-       // QString styleSheet = ( styleSheetFile.readAll() );
-       // a.setStyleSheet(styleSheet);
-        //end theme
+    //MainWindow w;
+    //w.show();
+
     Connection c;
-
-    bool test = c.createconnection();
+    bool test=c.createconnect();
     MainWindow w;
-    if (test){
-        w.show();
-        QMessageBox::information(nullptr, QObject::tr("Database is open"),
-                              QObject::tr("Connection successful"),
-                              QMessageBox::Ok
-                              );
+    if(test)
+    {w.show();
+        QMessageBox::information(nullptr, QObject::tr("database is open"),
+                    QObject::tr("connection successful.\n"
+                                "Click OK to continue."), QMessageBox::Ok);
+
+}
+    else
+        QMessageBox::critical(nullptr, QObject::tr("database is not open"),
+                    QObject::tr("connection failed.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
 
 
-    }else {
-        QMessageBox::critical(nullptr, QObject::tr("Database is not open"),
-                              QObject::tr("Connection failed"),
-                              QMessageBox::Cancel
-                              );
-    }
     return a.exec();
 }

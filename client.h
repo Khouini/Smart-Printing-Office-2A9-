@@ -43,6 +43,7 @@ public:
     void printPDF_client() ;
     void save(QString ,QString , QString,QString,QString,QString,QString,QString) ;
     QString load() ;
+    QSqlQueryModel * afficherIdClientComboBox() ;
 
 
 

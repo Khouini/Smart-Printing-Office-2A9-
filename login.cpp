@@ -4,9 +4,17 @@ login::login()
 {
 
 }
-QSqlQueryModel * login::Afficher()
+
+bool login::sign_in(QString uname,QString current_pwd)
 {
-  QSqlQueryModel * model= new QSqlQueryModel();
-       model->setQuery("select * from users;");
- return model;
+    QSqlQuery qry;
+    qry.prepare("SELECT * FROM USERS WHERE username=:username AND password=:password");
+    qry.bindValue(":username",uname);
+    qry.bindValue(":password",this->current_pwd);
+
+    //current_user=uname;
+
+    return qry.exec() && qry.next();
+
 }
+
