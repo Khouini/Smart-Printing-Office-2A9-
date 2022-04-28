@@ -47,6 +47,16 @@ QSqlQueryModel * Techniciens::afficher()
     QSqlQueryModel * model=new QSqlQueryModel();
 
     model->setQuery("select ID_EMPLOYEE,NOM_EMPLOYEE,PRENOM_EMPLOYEE,CIN_EMPLOYEE,TEL_EMPLOYEE,ID_TACHE,EMAIL_EMPLOYEE,PASSWORD_EMPLOYEE from EMPLOYEES");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("cin"));
+    model->setHeaderData(7,Qt::Horizontal,QObject::tr("num"));
+    model->setHeaderData(6,Qt::Horizontal,QObject::tr("idtache"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("email"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("password"));
+
+
     return  model;
 
 }
@@ -86,6 +96,15 @@ QSqlQueryModel * Techniciens:: tri_id()
 {
     QSqlQueryModel *model=new QSqlQueryModel();
     model->setQuery("select ID_EMPLOYEE,NOM_EMPLOYEE,PRENOM_EMPLOYEE,CIN_EMPLOYEE,TEL_EMPLOYEE,ID_TACHE,EMAIL_EMPLOYEE,PASSWORD_EMPLOYEE from EMPLOYEES order by ID_EMPLOYEE" );
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID")) ;
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom")) ;
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom")) ;
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("cin")) ;
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("num")) ;
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("idtache")) ;
+    model->setHeaderData(6,Qt::Horizontal,QObject::tr("email")) ;
+    model->setHeaderData(7,Qt::Horizontal,QObject::tr("mdp")) ;
+
     return model ;
 
 }
@@ -94,6 +113,15 @@ QSqlQueryModel * Techniciens:: tri_nom()
 {
     QSqlQueryModel *model=new QSqlQueryModel();
     model->setQuery("select ID_EMPLOYEE,NOM_EMPLOYEE,PRENOM_EMPLOYEE,CIN_EMPLOYEE,TEL_EMPLOYEE,ID_TACHE,EMAIL_EMPLOYEE,PASSWORD_EMPLOYEE from EMPLOYEES order by NOM_EMPLOYEE" );
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID")) ;
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom")) ;
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom")) ;
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("cin")) ;
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("num")) ;
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("idtache")) ;
+    model->setHeaderData(6,Qt::Horizontal,QObject::tr("email")) ;
+    model->setHeaderData(7,Qt::Horizontal,QObject::tr("mdp")) ;
+
     return model ;
 
 }
@@ -103,6 +131,14 @@ QSqlQueryModel * Techniciens::recherche(QString rech)
 {
     QSqlQueryModel * model = new QSqlQueryModel();
     model->setQuery("select * from EMPLOYEES where ID_EMPLOYEE LIKE '%"+rech+"%'");
+    model->setHeaderData(0,Qt::Horizontal, QObject::tr("ID"));
+    model->setHeaderData(1,Qt::Horizontal, QObject::tr("nom"));
+    model->setHeaderData(2,Qt::Horizontal, QObject::tr("prenom"));
+    model->setHeaderData(3,Qt::Horizontal, QObject::tr("cin"));
+    model->setHeaderData(4,Qt::Horizontal, QObject::tr("num"));
+    model->setHeaderData(5,Qt::Horizontal, QObject::tr("idtache"));
+    model->setHeaderData(6,Qt::Horizontal,QObject::tr("email")) ;
+    model->setHeaderData(7,Qt::Horizontal,QObject::tr("mdp")) ;
     return  model ;
 
  }
@@ -113,7 +149,7 @@ QSqlQueryModel * Techniciens::recherche(QString rech)
 void Techniciens::printPDF()
 {
 
-    QPdfWriter pdf("D:/Documents/GitHub/IntegrationQt/PDF/maintenance.pdf");
+    QPdfWriter pdf("C:/Users/Majd Tabessi/Desktop/ESPRIT2-2/projet c++/interfacefin MRIGEL/generer.pdf");
     QPainter painter(&pdf);
     QFont font=painter.font();
     QMessageBox msgBox;
@@ -157,7 +193,7 @@ void Techniciens::printPDF()
 
 
 void Techniciens::save(int id,QString nom,QString prenom,int cin,int num,int idtache , QString EMAIL_EMPLOYEE , QString PASSWORD_EMPLOYEE)
-{    QFile file ("D:/Documents/GitHub/IntegrationQt/Historique/historiqueTechneciens.txt");
+{    QFile file ("C:/Users/Majd Tabessi/Desktop/ESPRIT2-2/projet c++/interfacefin MRIGEL/histo.txt");
      if (!file.open(QIODevice::WriteOnly|QIODevice::Append | QIODevice::Text))
       qDebug()<<"erreur";
      QTextStream out(&file);
@@ -181,7 +217,7 @@ void Techniciens::save(int id,QString nom,QString prenom,int cin,int num,int idt
 
 QString Techniciens::load()
 {   QString tmp="";
-    QFile file("D:/Documents/GitHub/IntegrationQt/Historique/historiqueTechneciens.txt");
+    QFile file("C:/Users/Majd Tabessi/Desktop/ESPRIT2-2/projet c++/interfacefin MRIGEL/histo.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
       tmp="";
 

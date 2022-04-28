@@ -1,15 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "client.h"
-
+#include "techniciens.h"
 #include <QMainWindow>
-#include <QWidget>
-#include "mailing.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
 
 class MainWindow : public QMainWindow
 {
@@ -19,42 +15,38 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
 private slots:
-    void on_pushButton_ajouterC_clicked();
 
-    void on_pushButton_supprimerC_clicked();
 
-    void on_pushButton_modifierC_clicked();
+    void on_qrCode_clicked();
 
-    void on_pushButton_chercherC_clicked();
 
-    void on_pushButton_triC_clicked();
+    void on_pushButton_ajouter_maint_clicked();
 
-    void on_tableViewC_activated(const QModelIndex &index);
+    void on_pushButton_Modifier_maint_clicked();
 
-    void on_pushButtonPDFC_clicked();
+    void on_pushButton_rech_maint_clicked();
 
-    void on_pushButton_theme1C_clicked();
+    void on_pushButton_supp_maint_clicked();
 
-    void on_pushButton_theme2C_clicked();
+    void on_pushButton_sombre_maint_clicked();
 
-    void on_pushButton_historiqueC_clicked();
+    void on_pushButton_blanc_maint_clicked();
 
-    void on_pushButton_ouvrirPDFC_clicked();
+    void on_pushButton_pdf_maint_clicked();
 
-    void on_pushButton_mail_send_clicked();
+    void on_pushButton_historique_maint_clicked();
 
-    void on_pushButton_qrCode_clicked();
+    void on_radioButton_idTri_maint_clicked();
 
-    void on_qrCodeC_clicked();
+    void on_radioButton_nomTri_maint_clicked();
 
-    void on_pushButton_statC_clicked();
-
-    void on_pushButton_verifC_clicked();
+    void on_QUITTER_maint_clicked();
 
 private:
     Ui::MainWindow *ui;
-    client Etmp ;
+
+    Techniciens Etmp ;
+
 };
 #endif // MAINWINDOW_H

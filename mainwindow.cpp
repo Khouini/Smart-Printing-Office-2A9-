@@ -1,26 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "client.h"
-#include "notificationclient.h"
-
+#include "techniciens.h"
 #include <QMessageBox>
-#include<QString>
-#include<QSqlError>
 #include <QFile>
+#include <qrcode.h>
+#include <QPixmap>
+#include "techniciens.h"
 #include <QDesktopServices>
 #include <QUrl>
-#include <QPixmap>
-#include <QLabel>
-#include <QtCharts>
-#include <QPieSlice>
-#include <QPieSeries>
-#include "qrcode.h"
 
-
-
-using namespace qrcodegen ;
-using namespace std ;
-#include "mailing.h"
+using namespace qrcodegen;
+using namespace std;
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -28,17 +18,22 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //QPixmap pix("C:/Users/Wahch/Desktop/gestion_client_ssDialog/Picture2.png") ;
-    //ui->label_4->setPixmap(pix);
-    ui->lineEdit_prenomC->setValidator(new QRegExpValidator(QRegExp("[A-z]*"))) ;
-    ui->lineEdit_nomC->setValidator(new QRegExpValidator(QRegExp("[A-z]*"))) ;
-    ui->lineEdit_emailC->setValidator(new QRegExpValidator(QRegExp("[a-z]{1,10}@[a-z]{1,10}\\.[a-z]{1,4}"))) ;
-    ui->lineEdit_idC->setValidator(new QIntValidator(0,9999,this));
-    ui->lineEdit_cinC->setValidator(new QIntValidator(0,19999999,this));
-    ui->tableViewC->setModel(Etmp.afficher())  ;
-    ui->comboBoxSC->setModel(Etmp.afficherIdClientComboBox());
 
 
+
+//controle de saisie
+
+    ui->lineEdit_id_maint->setValidator(new QIntValidator(0,9999,this));
+    ui->lineEdit_cin_maint->setValidator(new QIntValidator(0,9999,this));
+    ui->lineEdit_num_maint->setValidator(new QIntValidator(0,9999,this));
+    ui->lineEdit_idtache_maint->setValidator(new QIntValidator(0,9999,this));
+
+    ui->lineEdit_nom_maint->setValidator(new QRegExpValidator ( QRegExp("[A-z]*") ));
+    ui->lineEdit_prenom_maint->setValidator(new QRegExpValidator ( QRegExp("[A-z]*") ));
+    ui->lineEdit_email_maint->setValidator(new QRegExpValidator ( QRegExp("[A-z]*") ));
+    ui->lineEdit_Ps_maint->setValidator(new QRegExpValidator ( QRegExp("[A-z]*") ));
+
+    ui->tableView_maint->setModel(Etmp.afficher());
 }
 
 MainWindow::~MainWindow()
@@ -47,426 +42,249 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_ajouterC_clicked()
+//ajout
+
+void MainWindow::on_pushButton_ajouter_maint_clicked()
 {
-    // recuperation des info saisies
-    int id_client=ui->lineEdit_idC->text().toInt();
-    int cinn=ui->lineEdit_cinC->text().toInt();
-    QString nom=ui->lineEdit_nomC->text();
-    QString prenom=ui->lineEdit_prenomC->text();
-    QString email=ui->lineEdit_emailC->text();
-    QString sexe;
-    QString type_client;
-    QString operation=" ajout";
-    if (ui->radioButtonHommeC->isChecked()){
-        sexe = "Homme";
-    }
-    if (ui->radioButton_FemmeC->isChecked()){
-        sexe = "Femme";
-    }
-    if (ui->radioButton_VIPC->isChecked()){
-        type_client = "VIP";
-    }
-    if (ui->radioButton_FidelC->isChecked()){
-        type_client = "Fidéle";
-    }
-    if (ui->radioButton_passageeC->isChecked()){
-        type_client = "Passager";
-    }
-    QString res1 = QString::number(id_client) ;
-    QString res2 = QString::number(cinn) ;
-    // objet client
-    client C(nom,prenom,email,sexe,type_client,id_client,cinn);
-    C.save(res1, res2, nom, prenom, email, sexe, type_client,operation);
-    notificationclient N(0, nom);
-    N.notificationsClient();
-    bool test= C.ajouterclient();
-    // bool test2=C.controle_saisie_client(C) ;
-    if(test)   // si requete executée
+    int id=ui->lineEdit_id_maint->text().toInt();
+    QString nom=ui->lineEdit_nom_maint->text();
+    QString prenom=ui->lineEdit_prenom_maint->text();
+    int cin=ui->lineEdit_cin_maint->text().toInt();
+    int num=ui->lineEdit_num_maint->text().toInt();
+    int idtache=ui->lineEdit_idtache_maint->text().toInt();
+    QString EMAIL_EMPLOYEE=ui->lineEdit_email_maint->text();
+    QString PASSWORD_EMPLOYEE=ui->lineEdit_Ps_maint->text();
+
+
+    Techniciens T(id,nom,prenom,cin,num,idtache,EMAIL_EMPLOYEE,PASSWORD_EMPLOYEE);
+    T.save(id,nom,prenom,cin,num,idtache,EMAIL_EMPLOYEE,PASSWORD_EMPLOYEE);
+    bool test=T.ajouter();
+
+    if(test)
     {
-        ui->tableViewC->setModel(Etmp.afficher());
-        QMessageBox::information(nullptr,QObject::tr("ok"),
-                                 QObject::tr("ajout effectué\n"
-                                             "Click cancel to exit."),
-                                QMessageBox::Cancel);
-         }
+        ui->tableView_maint->setModel(Etmp.afficher());
+
+        QMessageBox::information(nullptr, QObject::tr("OK"),
+                                 QObject::tr("Ajout effectué\n"
+                                             "Click cancel to exit."), QMessageBox::Cancel);
+
+    }
+    else
+        QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+                              QObject::tr("Ajout non effectué.\n"
+                                          "Click cancel to exit."), QMessageBox::Cancel);
+
+
+
+}
+
+
+//suppression
+
+void MainWindow::on_pushButton_supp_maint_clicked()
+{
+    int id =ui->lineEdit_supp_maint->text().toInt();
+    bool test=Etmp.supprimer(id);
+
+    if(test)
+    {
+        ui->tableView_maint->setModel(Etmp.afficher());
+
+        QMessageBox::information(nullptr,QObject::tr("OK"),
+                                 QObject::tr("Suppression effectuée\n"
+                                             "Click cancel to exit."), QMessageBox::Cancel);
+    }
     else
     {
-        QMessageBox::critical(nullptr,QObject::tr("Not ok"),
-                                 QObject::tr("ajout NON effectué\n"
-                                             "Click cancel to exit."),
-                                QMessageBox::Cancel);
+        QMessageBox::critical(nullptr, QObject::tr("Not OK"),
+                     QObject::tr("Suppression non effectuée.\n"
+                                 "Click cancel to exit."), QMessageBox::Cancel);
+    }
 
 }
-}
 
-void MainWindow::on_pushButton_supprimerC_clicked()
+
+
+
+//modifier
+
+void MainWindow::on_pushButton_Modifier_maint_clicked()
 {
-    int id =ui->lineEdit_supprimer_C->text().toInt() ;
-    bool test= Etmp.supprimer(id);
-    int id_client=ui->lineEdit_idC->text().toInt();
-    int cinn=ui->lineEdit_cinC->text().toInt();
-    QString nom=ui->lineEdit_nomC->text();
-    QString prenom=ui->lineEdit_prenomC->text();
-    QString email=ui->lineEdit_emailC->text();
-    QString sexe;
-    QString type_client;
-    QString operation=" Delete";
-    QString res1 = QString::number(id_client) ;
-    QString res2 = QString::number(cinn) ;
-    client C(nom,prenom,email,sexe,type_client,id_client,cinn);
-    notificationclient N(2, nom);
-    N.notificationsClient();
-    C.save(res1, res2, nom, prenom, email, sexe, type_client,operation);
+    int id=ui->lineEdit_id_maint->text().toInt();
+    QString nom=ui->lineEdit_nom_maint->text();
+    QString prenom=ui->lineEdit_prenom_maint->text();
+    int cin=ui->lineEdit_cin_maint->text().toInt();
+    int num=ui->lineEdit_num_maint->text().toInt();
+    int idtache=ui->lineEdit_idtache_maint->text().toInt();
+    QString EMAIL_EMPLOYEE=ui->lineEdit_email_maint->text();
+    QString PASSWORD_EMPLOYEE=ui->lineEdit_Ps_maint->text();
 
-    if(test)   // si requete executée
+    Techniciens T(id,nom,prenom,cin,num,idtache,EMAIL_EMPLOYEE,PASSWORD_EMPLOYEE);
+
+    bool test=T.modifier();
+
+    if(test)
     {
-        ui->tableViewC->setModel(Etmp.afficher());
-        ui->comboBoxSC->setModel(Etmp.afficherIdClientComboBox());
-        QMessageBox::information(nullptr,QObject::tr("ok"),
-                                 QObject::tr("suppression effectué\n"
-                                             "Click cancel to exit."),
-                                QMessageBox::Cancel);
-         }
-    else  {
+        ui->tableView_maint->setModel(Etmp.afficher());
 
-        QMessageBox::critical(nullptr,QObject::tr("Not ok"),
-                                 QObject::tr("suppression NON effectué\n"
-                                             "Click cancel to exit."),
-                                QMessageBox::Cancel);
-
-          }
-
-}
-
-void MainWindow::on_pushButton_modifierC_clicked()
-{
-    // recuperation des info saisies
-    int id_client=ui->lineEdit_idC->text().toInt();
-    int cinn=ui->lineEdit_cinC->text().toInt();
-    QString nom=ui->lineEdit_nomC->text();
-    QString prenom=ui->lineEdit_prenomC->text();
-    QString email=ui->lineEdit_emailC->text();
-    QString sexe;
-    QString type_client;
-    QString operation=" modification";
-    if (ui->radioButtonHommeC->isChecked()){
-        sexe = "Homme";
-    }
-    if (ui->radioButton_FemmeC->isChecked()){
-        sexe = "Femme";
-    }
-    if (ui->radioButton_VIPC->isChecked()){
-        type_client = "VIP";
-    }
-    if (ui->radioButton_FidelC->isChecked()){
-        type_client = "Fidéle";
-    }
-    if (ui->radioButton_passageeC->isChecked()){
-        type_client = "Passager";
-    }
-    QString res1 = QString::number(id_client) ;
-    QString res2 = QString::number(cinn) ;
-    // objet client
-    client C(nom,prenom,email,sexe,type_client,id_client,cinn);
-    bool test= C.modifierclient();
-    notificationclient N(1, nom);
-    N.notificationsClient();
-    C.save(res1, res2, nom, prenom, email, sexe, type_client , operation);
-    if(test)   // si requete executée
-    {
-        ui->tableViewC->setModel(Etmp.afficher());
-        QMessageBox::information(nullptr,QObject::tr("ok"),
+        QMessageBox::information(nullptr, QObject::tr("OK"),
                                  QObject::tr("modification effectué\n"
-                                             "Click cancel to exit."),
-                                QMessageBox::Cancel);
-         }
+                                             "Click cancel to exit."), QMessageBox::Cancel);
+
+    }
     else
     {
-        QMessageBox::critical(nullptr,QObject::tr("Not ok"),
-                                 QObject::tr("modification NON effectué\n"
-                                             "Click cancel to exit."),
-                                QMessageBox::Cancel);
-
-}
-}
-
-void MainWindow::on_pushButton_chercherC_clicked() //recherche
-{
-QString rech = ui->lineEdit_RC->text() ;
-ui->tableViewC->setModel(Etmp.rechercher(rech)) ;
-ui->comboBoxRC->setModel(Etmp.afficherIdClientComboBox());
-
-}
-
-void MainWindow::on_pushButton_triC_clicked()  //tri
-{
-    QString type ;
-    QString attribut ;
-    if (ui->radioButton_6AC->isChecked())
-    {  type="asc" ; }
-    if (ui->radioButton_6DC->isChecked())
-    {  type="desc" ; }
-
-    attribut = ui->comboBoxC->currentText();
-    ui->tableViewC->setModel(Etmp.tri(type,attribut))  ;
-
-
-
-
-}
-
-
-/* void MainWindow::on_tableViewC_2_activated(const QModelIndex &index) //table commande
-{
-
-} */
-
-void MainWindow::on_tableViewC_activated(const QModelIndex &index) // selection par id
-{
-    QString id=ui->tableViewC->model()->data(index).toString() ;
-
-
-    QSqlQuery query  ;
-
-    query.prepare("select * from CLIENTS where (ID_CLIENT LIKE '"+id+"')") ;
-    if (query.exec())
-    {
-        while (query.next()) {
-
-            ui->lineEdit_idC->setText(query.value(0).toString()) ;
-            ui->lineEdit_nomC->setText(query.value(1).toString()) ;
-            ui->lineEdit_prenomC->setText(query.value(2).toString()) ;
-            ui->lineEdit_emailC->setText(query.value(3).toString()) ;
-            ui->lineEdit_cinC->setText(query.value(4).toString()) ;
-            if ((query.value(4).toString() == "homme"))
-            { ui->radioButtonHommeC->setChecked(1) ;  }
-            if ((query.value(4).toString() == "femme"))
-            { ui->radioButton_FemmeC->setChecked(1) ;  }
-            if ((query.value(5).toString() == "VIP"))
-            { ui->radioButton_VIPC->setChecked(1) ;  }
-            if ((query.value(5).toString() == "Fidéle"))
-            { ui->radioButton_FidelC->setChecked(1) ;  }
-            if ((query.value(5).toString() == "Passage"))
-            { ui->radioButton_passageeC->setChecked(1) ;  }
-
-        }
+        QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+                              QObject::tr("modification non effectué.\n"
+                                          "Click cancel to exit."), QMessageBox::Cancel);
     }
-        else {
-             QMessageBox::critical(this,tr("error::"),query.lastError().text()) ;
-               }
+
 
 }
 
-void MainWindow::on_pushButtonPDFC_clicked()  //button export pdf
+
+
+
+
+
+//TRI ID
+void MainWindow::on_radioButton_idTri_maint_clicked()
 {
-   int cinn=ui->lineEdit_cinC->text().toInt();
-   int id_client=ui->lineEdit_idC->text().toInt();
-   QString email=ui->lineEdit_emailC->text();
-   QString nom=ui->lineEdit_nomC->text();
-   QString prenom=ui->lineEdit_prenomC->text();
-   QString sexe;
-   QString type_client;
-   if (ui->radioButtonHommeC->isChecked()){
-       sexe = "Homme";
-   }
-   if (ui->radioButton_FemmeC->isChecked()){
-       sexe = "Femme";
-   }
-   if (ui->radioButton_VIPC->isChecked()){
-       type_client = "VIP";
-   }
-   if (ui->radioButton_FidelC->isChecked()){
-       type_client = "Fidéle";
-   }
-   if (ui->radioButton_passageeC->isChecked()){
-       type_client = "Passager";
-   }
-   client Etmp(nom,prenom,email,sexe,type_client,id_client,cinn);
-   Etmp.printPDF_client() ;
+    ui->tableView_maint->setModel(Etmp.tri_id());
+
+}
+//TRI NOM
+
+void MainWindow::on_radioButton_nomTri_maint_clicked()
+{
+    ui->tableView_maint->setModel(Etmp.tri_nom());
 
 }
 
-void MainWindow::on_pushButton_theme1C_clicked()
+//recherche
+
+
+void MainWindow::on_pushButton_rech_maint_clicked()
 {
 
-    QFile styleSheetFile("C:/Users/Wahch/Desktop/projetQT/template/Darkeum.qss");
-    styleSheetFile.open(QFile::ReadOnly);
-    QString styleSheet = QLatin1String (styleSheetFile.readAll());
-    MainWindow::setStyleSheet(styleSheet);
+    QString rech= ui->lineEdit_rech_maint->text();
+    ui->tableView_maint->setModel(Etmp.recherche(rech));
+
 }
 
-void MainWindow::on_pushButton_theme2C_clicked()
+
+//theme
+
+void MainWindow::on_pushButton_sombre_maint_clicked()
 {
-    QFile styleSheetFile("C:/Users/Wahch/Desktop/projetQT/template/Toolery.qss");
-    styleSheetFile.open(QFile::ReadOnly);
-    QString styleSheet = QLatin1String (styleSheetFile.readAll());
-    MainWindow::setStyleSheet(styleSheet);
+    QFile styleSheetFile("C:/Users/Majd Tabessi/Desktop/ESPRIT2-2/projet c++/Darkeum/Darkeum.qss");
+        styleSheetFile.open(QFile::ReadOnly);
+        QString styleSheet = QLatin1String (styleSheetFile.readAll());
+        MainWindow::setStyleSheet(styleSheet);
 }
 
-void MainWindow::on_pushButton_historiqueC_clicked()
+void MainWindow::on_pushButton_blanc_maint_clicked()
 {
-    QString link="file:///C:/Users/Wahch/Desktop/gestion_client_ssDialog/histo.txt";
+    QFile styleSheetFile("C:/Users/Majd Tabessi/Desktop/ESPRIT2-2/projet c++/BLANC/Integrid.qss");
+        styleSheetFile.open(QFile::ReadOnly);
+        QString styleSheet = QLatin1String (styleSheetFile.readAll());
+        MainWindow::setStyleSheet(styleSheet);
+}
+
+
+
+
+
+//generer pdf
+
+
+void MainWindow::on_pushButton_pdf_maint_clicked()
+{
+    int id=ui->lineEdit_id_maint->text().toInt();
+    QString nom=ui->lineEdit_nom_maint->text();
+    QString prenom=ui->lineEdit_prenom_maint->text();
+    int cin=ui->lineEdit_cin_maint->text().toInt();
+    int num=ui->lineEdit_num_maint->text().toInt();
+    int idtache=ui->lineEdit_idtache_maint->text().toInt();
+    QString PASSWORD_EMPLOYEE=ui->lineEdit_Ps_maint->text();
+    QString EMAIL_EMPLOYEE=ui->lineEdit_email_maint->text();
+
+
+
+    Techniciens T(id,nom,prenom,cin,num,idtache,PASSWORD_EMPLOYEE,EMAIL_EMPLOYEE);
+    T.printPDF();
+}
+
+
+
+
+
+//qr code
+
+
+void MainWindow::on_qrCode_clicked()
+{
+    int tabeq=ui->tableView_maint->currentIndex().row();
+                   QVariant idd=ui->tableView_maint->model()->data(ui->tableView_maint->model()->index(tabeq,0));
+                   QString id=idd.toString();
+                  // QString code=idd.toSTring();
+                   QSqlQuery qry;
+                   qry.prepare("select * from EMPLOYEES where id_employee=:id");
+                   qry.bindValue(":id",id);
+                   qry.exec();
+
+                   int num,cin,idtache;
+                    QString idA, nom,prenom,password,email;//attributs
+
+
+                  while(qry.next()){
+
+                      idA=qry.value(0).toString();
+                       nom=qry.value(1).toString();
+                        prenom=qry.value(2).toString();
+                       cin=qry.value(3).toInt();
+                       num=qry.value(13).toInt();
+                       idtache=qry.value(10).toInt();
+                       password=qry.value(5).toString();
+                       email=qry.value(4).toString();
+
+                   }
+                   id=QString(id);
+                          id="ID_EMPLOYEE:\t" +idA+ "NOM_EMPLOYEE\t:" +nom+ "PRENOM_EMPLOYEE:\t" +prenom+ "CIN_EMPLOYEE:\t" +cin+ "TEL_EMPLOYEE:\t" +num+ "ID_TACHE:\t" +idtache+ "EMAIL_EMPLOYEE:\t" +email+ "PASSWORD_EMPLOYEE:\t" +password ;
+                   QrCode qr = QrCode::encodeText(id.toUtf8().constData(), QrCode::Ecc::HIGH);
+
+                   // Read the black & white pixels
+                   QImage im(qr.getSize(),qr.getSize(), QImage::Format_RGB888);
+                   for (int y = 0; y < qr.getSize(); y++) {
+                       for (int x = 0; x < qr.getSize(); x++) {
+                           int color = qr.getModule(x, y);  // 0 for white, 1 for black
+
+                           // You need to modify this part
+                           if(color==0)
+                               im.setPixel(x, y,qRgb(254, 254, 254));
+                           else
+                               im.setPixel(x, y,qRgb(0, 0, 0));
+                       }
+                   }
+                   im=im.scaled(200,200);
+                  ui->qr_code->setPixmap(QPixmap::fromImage(im));
+}
+
+
+
+//historique
+
+void MainWindow::on_pushButton_historique_maint_clicked()
+{
+    QString link="file:///C:/Users/Majd Tabessi/Desktop/ESPRIT2-2/projet c++/interfacefin MRIGEL/histo.txt";
         QDesktopServices::openUrl(QUrl(link));
-}
-
-void MainWindow::on_pushButton_ouvrirPDFC_clicked()
-{
-
-    QString link="file:///C:/Users/Wahch/Desktop/gestion_client_ssDialog/client.pdf";
-        QDesktopServices::openUrl(QUrl(link));
-}
-
-void MainWindow::on_pushButton_mail_send_clicked()
-{
-    Mailing* mailing = new Mailing("mohamed.wahchi@esprit.tn", "191JMT3037", "smtp.gmail.com", 465);
-    mailing->sendMail("mohamed.wahchi@esprit.tn", "mohamed.wahchi@esprit.tn", "Subject" ,"Message");
-}
-
-void MainWindow::on_pushButton_qrCode_clicked()
-{
-
-
 
 }
 
-void MainWindow::on_qrCodeC_clicked()
+
+
+
+void MainWindow::on_QUITTER_maint_clicked()
 {
-    int tabeq=ui->tableViewC->currentIndex().row();
-    QVariant idd=ui->tableViewC->model()->data(ui->tableViewC->model()->index(tabeq,0));
-    QString id=idd.toString();
-   // QString code=idd.toSTring();
-    QSqlQuery qry;
-    qry.prepare("select * from CLIENTS where ID_CLIENT=:id");
-    qry.bindValue(":id",id);
-    qry.exec();
-
-     QString nom,prenom,email,idC;//attributs
-     int cin ;
-
-
-
-   while(qry.next()){
-
-       idC=qry.value(1).toString();
-       nom=qry.value(2).toString();
-       prenom=qry.value(3).toInt();
-       cin=qry.value(5).toInt();
-       email=qry.value(8).toString();
-
-
-
-
-
-
-
-    }
-    id=QString(id);
-  id="ID_CLIENT:\t" +id+ "NOM_CLIENT\t:" +nom+ "PRENOM_CLIENT:\t" +prenom+ "CIN_CLIENT:\t" +cin+ "EMAIL_CLIENT:\t" +email  ;
-    QrCode qr = QrCode::encodeText(id.toUtf8().constData(), QrCode::Ecc::HIGH);
-
-    // Read the black & white pixels
-    QImage im(qr.getSize(),qr.getSize(), QImage::Format_RGB888);
-    for (int y = 0; y < qr.getSize(); y++) {
-        for (int x = 0; x < qr.getSize(); x++) {
-            int color = qr.getModule(x, y);  // 0 for white, 1 for black
-
-            // You need to modify this part
-            if(color==0)
-                im.setPixel(x, y,qRgb(254, 254, 254));
-            else
-                im.setPixel(x, y,qRgb(0, 0, 0));
-        }
-    }
-    im=im.scaled(200,200);
-      ui->qr_codeC->setPixmap(QPixmap::fromImage(im));
-
+    close();
 }
-
-void MainWindow::on_pushButton_statC_clicked()
-{
-    QSqlQueryModel * model= new QSqlQueryModel();
-                             model->setQuery("select * from CLIENTS where TYPE_CLIENT like 'VIP'  ");
-                             float VIP=model->rowCount();
-                             model->setQuery("select * from CLIENTS where TYPE_CLIENT like 'Fidele' ");
-                             float Fidele=model->rowCount();
-                             model->setQuery("select * from CLIENTS where TYPE_CLIENT like 'Passager' ");
-                             float Passager=model->rowCount();
-                             float total=VIP+Fidele+Passager;
-
-                             QString a=QString("VIP  "+QString::number((VIP*100)/total,'f',2)+"%" );
-                             QString b=QString("Fidele  "+QString::number((Fidele*100)/total,'f',2)+"%" );
-                             QString c=QString("Passager  "+QString::number((Passager*100)/total,'f',2)+"%" );
-
-                             QPieSeries *series = new QPieSeries();
-                             series->append(a,VIP);
-                             series->append(b,Fidele);
-                             series->append(c,Passager);
-
-
-                     if (VIP!=0)
-                     {QPieSlice *slice = series->slices().at(0); //pourcentage de chaque slice
-                      slice->setLabelVisible();
-                      slice->setPen(QPen());}
-                     if ( Fidele!=0)
-                     {
-                              // Add label, explode and define brush for 2nd slice
-                              QPieSlice *slice1 = series->slices().at(1);
-                              //slice1->setExploded();
-                              slice1->setLabelVisible();
-                     }
-                     if ( Passager!=0)
-                     {
-                              // Add label, explode and define brush for 2nd slice
-                              QPieSlice *slice2 = series->slices().at(2);
-                              //slice2->setExploded();
-                              slice2->setLabelVisible();
-                     }
-
-
-                             // Create the chart widget
-                             QChart *chart = new QChart();
-                             // Add data to chart with title and hide legend
-                             chart->addSeries(series);
-                             chart->setTitle("Pourcentage Par TYPE_CLIENT :Nombre clients "+ QString::number(total));
-                             chart->legend()->hide();
-                             // Used to display the chart
-                             QChartView *chartView = new QChartView(chart);
-                             chartView->setRenderHint(QPainter::Antialiasing);
-                             chartView->resize(1000,500);
-                             chartView->show();
-
-}
-
-void MainWindow::on_pushButton_verifC_clicked()
-{
-    bool test;
-    QSqlQuery qry;
-    QSqlQueryModel * model= new QSqlQueryModel();
-    model->setQuery("SELECT COUNT(ID_CLIENT) FROM CLIENTS ");
-    float COUNT=model->rowCount();
-    qry.prepare("SELECT COUNT(ID_CLIENT) FROM CLIENTS ");
-    if (qry.exec()){
-
-        while (qry.next()){
-            if (COUNT > 10){
-                        test = true;
-                    }else{
-                        test = false;
-                    }
-        }
-
-        QMessageBox msgbox;
-        if (test){
-
-                QMessageBox::information(nullptr, QObject::tr("notification"),
-                                      QObject::tr("nombre de client est superieur a 10"),
-                                      QMessageBox::Ok
-                                      );
-            }else{
-                QMessageBox::critical(nullptr, QObject::tr("notification"),
-                                      QObject::tr("alerte : nombre de client est inferieur a 10"),
-                                      QMessageBox::Cancel
-                                      );
-            }
-} }
